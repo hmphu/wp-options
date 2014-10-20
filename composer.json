@@ -9,6 +9,6 @@
 		}
 	],
 	"autoload": {
-		"psr-0": { "OWC\\Options\\": "" }
+		"psr-0": { "OWC\\Options\\": "src/" }
 	}
 }
