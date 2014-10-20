@@ -1,0 +1,10 @@
+{
+	"name": "owc/wp-options",
+	"description": "Wordpress helper for creating option pages.",
+	"authors": [
+		{
+			"name": "antoniozzo",
+			"email": "info@antoniorizzo.com"
+		}
+	]
+}
