@@ -118,6 +118,19 @@ class Options {
 		echo "<textarea name='$name'>$value</textarea>";
 	}
 
+	public function input_page( $args ) {
+		$name  = esc_attr( $args['name'] );
+		$value = esc_attr( $args['value'] );
+		$posts = get_posts( 'post_type=page&posts_per_page=-1' );
+
+		echo '<select name="' . $name . '">';
+		echo '<option value="0">' . __( 'Select a page', 'owc' ) . '</option>';
+		foreach ($posts as $post) {
+			echo '<option value="' . $post->ID . '"' . selected( $value, $post->ID ) . '>' . $post->post_title . '</option>';
+		}
+		echo '</select>';
+	}
+
 	/*
 	|-----------------------------------------------------------
 	| METHODS
