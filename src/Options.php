@@ -52,6 +52,20 @@ class Options {
 			);
 			if ( is_array( $section['fields'] ) ) {
 				foreach ( $section['fields'] as $field_key => $field ) {
+					$options = array();
+					if ( isset( $field['options'] ) ) {
+						if ( isset( $field['option_key'] ) && isset( $field['option_value'] ) ) {
+							foreach ( $field['options'] as $obj ) {
+								$obj = (array)$obj;
+								$key = $obj[ $field['option_key'] ];
+								$value = $obj[ $field['option_value'] ];
+								$options[ $key ] = $value;
+							}
+						} else {
+							$options = $field['options'];
+						}
+					}
+
 					add_settings_field(
 						$field_key,
 						$field['title'],
@@ -62,7 +76,9 @@ class Options {
 							'name'  => $this->prefix . '[' . $field_key . ']',
 							'value' => isset( $this->settings[$field_key] )
 								? $this->settings[$field_key]
-								: $field['value']
+								: $field['value'],
+							'options' => $options,
+							'label'	=> isset( $field['title'] ) ? $field['title'] : ''
 						)
 					);
 				}
@@ -127,6 +143,18 @@ class Options {
 		echo '<option value="0">' . __( 'Select a page', 'owc' ) . '</option>';
 		foreach ($posts as $post) {
 			echo '<option value="' . $post->ID . '"' . selected( $value, $post->ID ) . '>' . $post->post_title . '</option>';
+		}
+		echo '</select>';
+	}
+
+	public function input_select( $args ) {
+		$name  = esc_attr( $args['name'] );
+		$value = esc_attr( $args['value'] );
+
+		echo '<select name="' . $name . '">';
+		echo '<option value="0">' . sprintf( __( 'Select a %s', 'owc' ), esc_attr( $args['label'] ) ) . '</option>';
+		foreach ($args['options'] as $key => $name ) {
+			echo '<option value="' . esc_attr( $key ) . '"' . selected( $value, $key ) . '>' . esc_attr( $name ) . '</option>';
 		}
 		echo '</select>';
 	}
