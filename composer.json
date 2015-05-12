@@ -1,0 +1,14 @@
+{
+	"name": "owc/wp-options",
+	"description": "Wordpress helper for creating option pages.",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "antoniozzo",
+			"email": "info@antoniorizzo.com"
+		}
+	],
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}
